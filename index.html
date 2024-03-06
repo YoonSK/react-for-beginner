@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="root">
+      <App />
+    </div>
+  </body>
+  <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18.0.0/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function MinutesToHours() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (e) => {
+        setAmount(e.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <label htmlFor="minutes">Minutes</label>
+          <input
+            value={inverted ? amount * 60 : amount}
+            id="minutes"
+            onChange={onChange}
+            placeholder="Minutes"
+            type="number"
+            disabled={inverted}
+          />
+          <label htmlFor="hours">Hours</label>
+          <input
+            value={inverted ? amount : Math.round(amount / 60)}
+            id="hours"
+            onChange={onChange}
+            placeholder="Hours"
+            type="number"
+            disabled={!inverted}
+          />
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
+        </div>
+      );
+    }
+
+    function App() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (e) => {
+        setAmount(e.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <label htmlFor="minutes">Minutes</label>
+          <input
+            value={inverted ? amount * 60 : amount}
+            id="minutes"
+            onChange={onChange}
+            placeholder="Minutes"
+            type="number"
+            disabled={inverted}
+          />
+          <label htmlFor="hours">Hours</label>
+          <input
+            value={inverted ? amount : Math.round(amount / 60)}
+            id="hours"
+            onChange={onChange}
+            placeholder="Hours"
+            type="number"
+            disabled={!inverted}
+          />
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
