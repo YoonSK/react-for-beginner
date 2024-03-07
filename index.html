@@ -5,82 +5,39 @@
       <App />
     </div>
   </body>
-  <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18.0.0/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script type="text/babel">
-    function MinutesToHours() {
-      const [amount, setAmount] = React.useState(0);
-      const [inverted, setInverted] = React.useState(false);
-      const onChange = (e) => {
-        setAmount(e.target.value);
-      };
-      const reset = () => setAmount(0);
-      const onFlip = () => {
-        reset();
-        setInverted((current) => !current);
-      };
+    function Btn({ text, fontSize }) {
       return (
-        <div>
-          <h1>Super Converter</h1>
-          <label htmlFor="minutes">Minutes</label>
-          <input
-            value={inverted ? amount * 60 : amount}
-            id="minutes"
-            onChange={onChange}
-            placeholder="Minutes"
-            type="number"
-            disabled={inverted}
-          />
-          <label htmlFor="hours">Hours</label>
-          <input
-            value={inverted ? amount : Math.round(amount / 60)}
-            id="hours"
-            onChange={onChange}
-            placeholder="Hours"
-            type="number"
-            disabled={!inverted}
-          />
-          <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
-        </div>
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontSize,
+          }}
+        >
+          {text}
+        </button>
       );
     }
-
+    const MemorizeBtn = React.memo(Btn);
+    MemorizeBtn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
     function App() {
-      const [amount, setAmount] = React.useState(0);
-      const [inverted, setInverted] = React.useState(false);
-      const onChange = (e) => {
-        setAmount(e.target.value);
-      };
-      const reset = () => setAmount(0);
-      const onFlip = () => {
-        reset();
-        setInverted((current) => !current);
-      };
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <h1>Super Converter</h1>
-          <label htmlFor="minutes">Minutes</label>
-          <input
-            value={inverted ? amount * 60 : amount}
-            id="minutes"
-            onChange={onChange}
-            placeholder="Minutes"
-            type="number"
-            disabled={inverted}
-          />
-          <label htmlFor="hours">Hours</label>
-          <input
-            value={inverted ? amount : Math.round(amount / 60)}
-            id="hours"
-            onChange={onChange}
-            placeholder="Hours"
-            type="number"
-            disabled={!inverted}
-          />
-          <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
+          <MemorizeBtn text={value} fontSize={18} />
+          <MemorizeBtn text="Continue" />
         </div>
       );
     }
